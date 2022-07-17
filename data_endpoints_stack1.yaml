@@ -1,0 +1,78 @@
+AWSTemplateFormatVersion: 2010-09-09
+Parameters:
+  PostgresDBEngine:
+    Description: Choose the source DB engine to stream changes.
+    Type: String
+    AllowedValues:
+      - postgres
+  PostgresDBServer:
+    Description: Hostname of the source postgres DB.
+    Type: String
+  PostgresDBPort:
+    Description: Port of the source postgres DB.
+    Type: Number
+  PostgresDBUser:
+    Description: Username for the source postgres DB.
+    Type: String
+  PostgresDBPassword:
+    Description: Password for the source postgres DB.
+    Type: String
+    NoEcho: true
+  PostgresDBName:
+    Description: Name of the source postgres DB.
+    Type: String
+  MongoDBEngine:
+    Description: Choose the source DB engine to stream changes.
+    Type: String
+    AllowedValues:
+      - mongodb
+  MongoDBServer:
+    Description: Hostname of the source mongo DB.
+    Type: String
+  MongoDBPort:
+    Description: Port of the source mongo DB.
+    Type: Number
+  MongoDBUser:
+    Description: Username for the source mongo DB.
+    Type: String
+  MongoDBPassword:
+    Description: Password for the source mongo DB.
+    Type: String
+    NoEcho: true
+  MongoDBName:
+    Description: Name of the source mongo DB.
+    Type: String
+Resources:
+  PostgresDMSSourceEndpoint:
+    Type: AWS::DMS::Endpoint
+    Properties:
+      EndpointType: source
+      EngineName:
+        Ref: PostgresDBEngine
+      ServerName:
+        Ref: PostgresDBServer
+      Port:
+        Ref: PostgresDBPort
+      Username:
+        Ref: PostgresDBUser
+      Password:
+        Ref: PostgresDBPassword
+      DatabaseName:
+        Ref: PostgresDBName
+  MongoDMSSourceEndpoint:
+    Type: AWS::DMS::Endpoint
+    Properties:
+      EndpointType: source
+      EngineName:
+        Ref: MongoDBEngine
+      ServerName:
+        Ref: MongoDBServer
+      Port:
+        Ref: MongoDBPort
+      Username:
+        Ref: MongoDBUser
+      Password:
+        Ref: MongoDBPassword
+      DatabaseName:
+        Ref: MongoDBName
+
